@@ -2,6 +2,9 @@ package parking;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Mockito.*;
 
 public class VipParkingStrategyTest {
@@ -11,8 +14,18 @@ public class VipParkingStrategyTest {
 
 	    /* Exercise 4, Write a test case on VipParkingStrategy.park()
 	    * With using Mockito spy, verify and doReturn */
+      ParkingLot parkingLot = mock(ParkingLot.class);
+      when(parkingLot.isFull()).thenReturn(true);
+      Car car = mock(Car.class);
+      List<ParkingLot> parkingLots = new ArrayList<>();
+      parkingLots.add(parkingLot);
 
-    }
+      VipParkingStrategy vipParkingStrategy = spy(new VipParkingStrategy());
+      doReturn(true).when(vipParkingStrategy).isAllowOverPark(car);
+      Receipt receipt = vipParkingStrategy.park(parkingLots, car);
+
+      verify(vipParkingStrategy, times(1)).createReceipt(parkingLot, car);
+  }
 
     @Test
     public void testPark_givenCarIsNotVipAndAFullParkingLog_thenGiveNoSpaceReceipt() {
