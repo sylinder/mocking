@@ -2,6 +2,8 @@ package parking;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class InOrderParkingStrategyTest {
 
 	@Test
@@ -10,7 +12,14 @@ public class InOrderParkingStrategyTest {
 	    /* Exercise 1, Write a test case on InOrderParkingStrategy.createReceipt()
 	    * With using Mockito to mock the input parameter */
 
-    }
+      //private Receipt createReceipt(ParkingLot parkingLot, Car car)
+      ParkingLot parkingLot = new ParkingLot("oocl", 10);
+      Car car = new Car("audi");
+      InOrderParkingStrategy inOrderParkingStrategy = new InOrderParkingStrategy();
+      Receipt receipt = inOrderParkingStrategy.createReceipt(parkingLot, car);
+      assertEquals("oocl", receipt.getParkingLotName());
+      assertEquals("audi", receipt.getCarName());
+  }
 
     @Test
     public void testCreateNoSpaceReceipt_givenACar_thenGiveANoSpaceReceipt() {
